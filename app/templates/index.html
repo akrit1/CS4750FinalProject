@@ -36,9 +36,33 @@
         border: 1px solid black;
         padding: 5px;
     }
+    .btn-group button {
+  background-color: blue; /* Green background */
+  border: 1px solid blue; /* Green border */
+  color: white; /* White text */
+  padding: 6px 20px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 8%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: white;
+  color: black;
+}
+.child {
+    
+    float: left;
+    width: 50%;
+}
 </style>
 <div class="topnav">
-    <a href="/people">People</a>
+    <a href="/people">Players</a>
     <a href="/pitching">Pitching</a>
     <a href="/profile">Profile</a>
     <a href="{{ url_for('logout') }}">Logout</a>
@@ -55,24 +79,45 @@
 </select>
 <input type="submit">
 </form>
-<table style="margin: auto; width: 50%; height: 50%; padding: 10px;">
-  <thead>
-    <tr>
-        {% for col in headers %}
-        <th>{{col}}</th>
+<section class="parent">
+<section class="child">
+    <div class="btn-group" style="width: 100%; display: inline-block;">
+        {% for row in data %}
+        <form method="POST">
+            <br>
+            <button type="submit" class="btn btn-grey btn-md">Add To Favorites</button>
+          </form>
         {% endfor %}
-    </tr>
-    </thead>    
-    <tbody>
-     {% for row in data %}
-            <tr>
-                {% for i in cols %}
-                <td>{{row[i]}}</td>
-                {% endfor %}
-            </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    </div>
+</section>
+<section class="child">
+    <table style="width: 100%; height: 100%; padding: 10px; display: inline-block; overflow-y: scroll;">
+        <thead>
+          <tr>
+              {% for col in headers %}
+              <th>{{col}}</th>
+              {% endfor %}
+          </tr>
+          </thead>    
+          <tbody>
+           {% for row in data %}
+                  <tr>
+                      {% for i in cols %}
+                      
+                      <td>{{row[i]}} 
+                          </td>
+                      {% endfor %}
+                  </tr>
+          {% endfor %}
+          </tbody>
+      </table>
+</section>
+
+</section>
+
+<!-- <div style="width: 50%; display: inline-block;">
+
+</div> -->
 <div style="text-align: center;">
     <a href={{file}} download>
         Download as CSV
