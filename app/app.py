@@ -25,7 +25,7 @@ for table in tables:
   cursor.execute(query)
   data = cursor.fetchall()
   headers = [desc[0] for desc in cursor.description]
-  with open("./app/data/" + table + ".csv", "w") as f:
+  with open("./app/data/" + table + ".csv.icloud", "w") as f:
           temp = writer(f)
           temp.writerow(headers)
           temp.writerows(data)
@@ -208,4 +208,20 @@ def editprofile():
             form.email.data = account[3]
         return render_template('editprofile.html', title='Edit Account', form=form)
   return redirect(url_for('login'))
-
+"""
+@app.route('/follow/', methods=['GET', 'POST'])
+def follow():
+  if 'loggedin' in session:
+    if request.method == 'POST':
+        
+        return redirect('/profile/')
+    else:
+        cursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'],))
+        account = cursor.fetchone()
+        if account:
+            form.username.data = account[1]
+            form.password.data = account[2]
+            form.email.data = account[3]
+        return render_template('editprofile.html', title='Edit Account', form=form)
+  return redirect(url_for('login'))
+"""
